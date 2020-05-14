@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Example</title>
+      <title>TravelList</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <!-- Do not add `link` tags-->
@@ -12,6 +12,28 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
-      <h1>Browser Template</h1>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <span class="pointer navbar-brand" href="#">TravelList</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="pointer nav-item active">Home</li>
+            <li class="pointer nav-item">Features</li>
+            <li class="pointer nav-item">Pricing</li>
+          </ul>
+        </div>
+      </nav>
+      <div class="buttons">
+        <button type="button" class="btn btn-light">Bucket List</button>
+        <button type="button" class="btn btn-light">Add Destination</button>
+        <button type="button" class="btn btn-light">Change Ranking</button>
+        <button type="button" class="btn btn-light">Remove Destination</button>
+      </div>
+      <section class="main">
+      <div class="aside">Aside</div>
+      <div class="map">Map</div>
+      </section>
     </body>
 </html>
