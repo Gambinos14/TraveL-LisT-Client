@@ -12,28 +12,187 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
+
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <span class="pointer navbar-brand" href="#">TravelList</span>
+        <span class="navbar-brand" href="#">TraveL LisT</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="pointer nav-item active">Home</li>
-            <li class="pointer nav-item">Features</li>
-            <li class="pointer nav-item">Pricing</li>
+            <li id="sign-in" class="pointer nav-item active" data-toggle="modal" data-target="#sign-in-modal">Sign In</li>
+            <li id="sign-up" class="pointer nav-item" data-toggle="modal" data-target="#sign-up-modal">Sign Up</li>
+            <li id="change-pw" class="pointer nav-item" data-toggle="modal" data-target="#change-pw-modal">Change Password</li>
+            <li id="logout" class="pointer nav-item">Sign Out</li>
           </ul>
         </div>
       </nav>
+      <p class="error_message"></p>
       <div class="buttons">
-        <button type="button" class="btn btn-light">Bucket List</button>
-        <button type="button" class="btn btn-light">Add Destination</button>
-        <button type="button" class="btn btn-light">Change Ranking</button>
-        <button type="button" class="btn btn-light">Remove Destination</button>
+        <button type="button" class="btn btn-light bucket-list">Bucket List</button>
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#new-destination-modal">Add Destination</button>
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#change-ranking-modal">Change Ranking</button>
+        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#delete-destination-modal">Remove Destination</button>
       </div>
+
       <section class="main">
-      <div class="aside">Aside</div>
-      <div class="map">Map</div>
+        <div class="aside">
+          <p>Aside</p>
+          <ol id="destinations"></ol>
+        </div>
+        <div class="map">Map</div>
       </section>
+
+
+      <div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="sign-up-form">
+                <p>Email Address</p>
+                <input required name="credentials[email]" type="text">
+                <p>Password</p>
+                <input required name="credentials[password]" type="password">
+                <p>Password Confirmation</p>
+                <input required name="credentials[password_confirmation]" type="password">
+                <button type="submit" class="btn btn-light">Sign Up</button>
+                <p id="sign-up-message"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="sign-in-form">
+                <p>Email Address</p>
+                <input required name="credentials[email]" type="text">
+                <p>Password</p>
+                <input required name="credentials[password]" type="password">
+                <button type="submit" class="btn btn-light">Sign In</button>
+                <p id="sign-in-message"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="change-pw-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="change-pw-form">
+                <p>Old Password</p>
+                <input required name="passwords[old]" type="password">
+                <p>New Password</p>
+                <input required name="passwords[new]" type="password">
+                <button type="submit" class="btn btn-light">Change Password</button>
+                <p id="change-pw-message"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="new-destination-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="new-destination-form">
+                <p>City</p>
+                <input required name="city" type="text">
+                <p>Country</p>
+                <input required name="country" type="text">
+                <p>Latitude</p>
+                <div class="special-display">
+                  <input required id="latitude" name="latitude" type="number" step="0.0001" min='-90' max='90'>
+                  <select id="lat-direction">
+                    <option value="north">N</option>
+                    <option value="south">S</option>
+                  </select>
+                </div>
+                <p>Longitude</p>
+                <div class="special-display">
+                  <input required id="longitude" name="longitude" type="number" step="0.0001" min='-180' max='180'>
+                  <select id="long-direction">
+                    <option value="east">E</option>
+                    <option value="west">W</option>
+                  </select>
+                </div>
+                <p>Rating</p>
+                <input required name="rating" min="1" max="100">
+                <button type="submit" class="btn btn-light">Add Destination</button>
+                <p id="new-destination-message"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="change-ranking-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="change-ranking-form">
+                <p>Destination ID</p>
+                <input required name="id" type="text">
+                <p>New Rating</p>
+                <input required name="destination[rating]" type="Number" min="0" max="100">
+                <button type="submit" class="btn btn-light">Change Ranking</button>
+                <p id="change-ranking-message"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="delete-destination-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="delete-destination-form">
+                <p>Destination ID</p>
+                <input required name="id" type="text">
+                <button type="submit" class="btn btn-light">Delete Destination</button>
+                <p id="delete-destination-message"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </body>
 </html>

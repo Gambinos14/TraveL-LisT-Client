@@ -9,8 +9,8 @@ body {
 }
 
 .buttons {
+  display: none;
   margin: 15px auto;
-  display: flex;
   justify-content: center;
   & > button {
     margin: 5px;
@@ -24,6 +24,22 @@ body {
   }
 }
 
+
+.error_message {
+  display: none;
+}
+
+.failure {
+  margin-top: 20px auto;
+  text-align: center;
+  color: red;
+}
+
+.success {
+  margin-top: 20px auto;
+  text-align: center;
+  color: green;
+}
 .main {
   display: flex;
   flex-direction: row;
@@ -40,12 +56,43 @@ body {
     padding: 20px;
   }
 }
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  & > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > p {
+      width: 75%;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    & > input {
+      width: 75%;
+    }
+    & > button {
+      width: 50%;
+      margin-top: 15px;
+      color: $bootstrap-dark;
+      font-size: 18px;
+      padding: 5px 10px;
+      &:hover {
+        background-color: $bootstrap-dark;
+        color: white;
+      }
+    }
+  }
+}
+
 .navbar {
   // first number is left/right second number top/bottom third is blur
   box-shadow: 0 0 10px;
   & > .navbar-brand {
     font-size: 30px;
-    letter-spacing: 1px;
+    font-weight: 700;
   }
   & > #navbarNav > .navbar-nav {
     & > li {
@@ -71,6 +118,13 @@ body {
   cursor: pointer;
 }
 
+.special-display {
+  text-align: center;
+  display: inline;
+  width: 100%;
+}
+
+
 @media screen and (min-width: 768px) {
   #navbarNav {
     display: flex;
@@ -86,4 +140,17 @@ body {
       }
     }
   }
+}
+
+
+#change-pw {
+  display: none;
+}
+
+#latitude, #longitude {
+  width: 65%;
+}
+
+#logout {
+  display: none;
 }
