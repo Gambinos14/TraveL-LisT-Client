@@ -28,20 +28,28 @@
         </div>
       </nav>
       <p class="error_message"></p>
-      <div class="buttons">
-        <button type="button" class="btn btn-light bucket-list">Bucket List</button>
-        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#new-destination-modal">Add Destination</button>
-        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#change-ranking-modal">Change Ranking</button>
-        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#delete-destination-modal">Remove Destination</button>
-      </div>
 
-      <section class="main">
-        <div class="aside">
-          <p>Aside</p>
-          <ol id="destinations"></ol>
-        </div>
-        <div class="map">Map</div>
-      </section>
+      <main class="flex-wrapper">
+
+        <section class="main">
+            <h2 class="destination-banner">Top Destinations</h2>
+
+            <ol id="destinations">
+            </ol>
+
+            <button type="button" class="btn btn-light bucket-list buttons">Get Bucket List</button>
+            <button type="button" class="btn btn-light buttons" data-toggle="modal" data-target="#new-destination-modal">Add Destination</button>
+            <button type="button" class="btn btn-light buttons" data-toggle="modal" data-target="#change-ranking-modal">Change Ranking</button>
+            <button type="button" class="btn btn-light buttons" data-toggle="modal" data-target="#delete-destination-modal">Remove Destination</button>
+
+            <p class="destinations-failure"></p>
+        </section>
+
+        <section class="map h-100 w-100">
+            <img class="world-map" src="public/earth_map.jpg" alt="Map">
+        </section>
+
+      </main>
 
 
       <div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog">

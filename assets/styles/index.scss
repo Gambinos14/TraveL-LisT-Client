@@ -8,6 +8,7 @@ body {
   font-family: $main-font;
 }
 
+
 .buttons {
   display: none;
   margin: 15px auto;
@@ -24,9 +25,24 @@ body {
   }
 }
 
+.destination-banner {
+  margin: 35px auto;
+}
+.destination-li {
+  margin-right: 25px;
+  margin-bottom: 5px;
+}
+
+.destinations-failure {
+  display: none;
+}
 
 .error_message {
   display: none;
+}
+
+.flex-wrapper {
+  display: flex;
 }
 
 .failure {
@@ -40,20 +56,27 @@ body {
   text-align: center;
   color: green;
 }
+
 .main {
   display: flex;
-  flex-direction: row;
-  & > .aside {
-    height: 100vh;
-    width: 20vw;
-    border: 1px solid $bootstrap-dark;
-    padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid black;
+  width: 30%;
+  & > ol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  & > .map {
-    height: 100vh;
-    width: 80vw;
-    border: 1px solid $bootstrap-dark;
-    padding: 20px;
+}
+
+.map {
+  width: 70%;
+  padding: 35px;
+  & > .world-map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 

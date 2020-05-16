@@ -10,7 +10,7 @@ const onSignUp = (event) => {
   $('#sign-up-message').text('')
   const form = event.target
   const formData = getFormFields(form)
-  console.log(formData)
+  // console.log(formData)
 
   api.signUp(formData)
    .then(ui.onSignUpSuccess)
@@ -20,17 +20,17 @@ const onSignUp = (event) => {
 const onSignIn = (event) => {
   event.preventDefault()
   $('#sign-in-message').text('')
-  console.log("Current Store: ", store.user)
+  // console.log("Current Store: ", store.user)
   const form = event.target
   const formData = getFormFields(form)
-  console.log(formData)
+  // console.log(formData)
 
   api.signIn(formData)
    .then(data => {
      store.user = data.user
      ui.onSignInSuccess(data)
-     console.log('Store: ', store.user)
-     console.log('Token: ', store.user.token)
+     // console.log('Store: ', store.user)
+     // console.log('Token: ', store.user.token)
    })
    .catch(ui.onSignInFailure)
 }

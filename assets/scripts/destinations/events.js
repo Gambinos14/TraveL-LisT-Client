@@ -3,6 +3,9 @@
 const ui = require('./ui.js')
 const api = require('./api.js')
 const getFormFields = require('../../../lib/get-form-fields.js')
+const _ = require('lodash')
+
+let currentUserRanking;
 
 const checkNumberOfDecimals = num => {
   const numString = num.toString()
@@ -19,12 +22,14 @@ const checkNumberOfDecimals = num => {
 }
 
 const onGetList = event => {
+  event.preventDefault()
   api.getList()
-    .then(data=> {
-      console.log('getList worked')
-      console.log(data)
+    .then(data => {
+      currentUserRanking = _.sortBy(data.userDestinations, 'rating')
+      console.log('onGetList ranking: ', currentUserRanking)
+      ui.onGetListSuccess(currentUserRanking)
     })
-    .catch(console.error)
+    .catch(ui.onGetListFailure)
 }
 
 const onAddDestination = event => {
@@ -40,8 +45,7 @@ const onAddDestination = event => {
   const checkLat = checkNumberOfDecimals(latitude)
   if (!checkLat) {
     console.log('checkLat Failed')
-    throw new Error
-    // ui.onAddDestinationFailed()
+    ui.onAddDestinationFailure('checkLat failed')
   }
   const latDirection = $('#lat-direction').val()
   if (latDirection === 'north') {
@@ -55,8 +59,7 @@ const onAddDestination = event => {
   const checkLong = checkNumberOfDecimals(longitude)
   if (!checkLong) {
     console.log('checkLong Failed')
-    throw new Error
-    // ui.onAddDestinationFailed()
+    ui.onAddDestinationFailure('checkLong failed')
   }
 
   const longDirection = $('#long-direction').val()
@@ -71,7 +74,11 @@ const onAddDestination = event => {
   console.log(formData)
 
   api.addDestination(formData)
-    .then(ui.onAddDestinationSuccess)
+    .then(response => {
+      onGetList(event)
+      $('#new-destination-form').trigger('reset')
+      $('#new-destination-modal').modal('hide')
+    })
     .catch(ui.onAddDestinationFailure)
 }
 
@@ -79,15 +86,47 @@ const onChangeRating = event => {
   event.preventDefault()
   const form = event.target
   const formData = getFormFields(form)
-  const id = formData.id
-  const rating = {}
-  rating.destination = formData.destination
-  // console.log('id: ', id)
-  // console.log('newRating: ', rating)
 
-  api.changeRating(id, rating)
-    .then(console.log)
-    .catch(console.error)
+  const newRanking = formData.destination.rating
+  const cityIndex = currentUserRanking.map(e => e._id).indexOf(formData.id)
+  const currentCity = currentUserRanking[cityIndex]
+  currentCity.rating = newRanking
+
+  const newUserRanking = currentUserRanking.filter( element => {
+    if (element !== currentCity) {
+      return true
+    }
+  })
+
+  newUserRanking.splice((newRanking - 1), 0, currentCity)
+
+  newUserRanking.forEach( (element, index) => {
+    newUserRanking[index].rating = index + 1
+  })
+
+  console.log(newUserRanking)
+
+const updateRanking = async function() {
+  for (let i = 0; i < newUserRanking.length; i++) {
+    const id = newUserRanking[i]._id
+    const rating = {
+      destination: {
+        rating: newUserRanking[i].rating
+      }
+    }
+    api.changeRating(id, rating)
+      .then(ui.onUpdateSuccess)
+      .catch(ui.onUpdateFailure)
+  }
+}
+
+updateRanking()
+  .then(() => {
+    onGetList(event)
+  })
+  // api.changeRating(id, rating)
+  //   .then(console.log)
+  //   .catch(console.error)
 }
 
 const onDeleteDestination = event => {

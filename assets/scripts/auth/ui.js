@@ -56,6 +56,7 @@ const onSignOutSuccess = data => {
   $('#change-pw').hide()
   $('#logout').hide()
   $('.buttons').hide()
+  $('#destinations').html("")
 }
 
 const onSignOutFailure = error => {
