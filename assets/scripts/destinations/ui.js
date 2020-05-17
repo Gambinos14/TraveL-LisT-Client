@@ -1,6 +1,7 @@
 'use strict'
 
 const showDestinations = require('../../templates/destination-listing.handlebars')
+const updateModal = require('../../templates/listItem-modal.handlebars')
 
 const onGetListSuccess = data => {
   const userDestinationsHtml = showDestinations({ destinations: data })
@@ -28,12 +29,19 @@ const onAddDestinationFailure = error => {
   $('#new-destination-message').show()
 }
 
-const onUpdateSuccess = data => {
-  console.log('working ...')
+const onUpdateSuccess = () => {
+ //code
 }
 
-const onUpdateFailure = error => {
-  console.error
+const onShowSuccess = data => {
+  console.log('current info is: ', data)
+  const newModalHtml = updateModal(data.destination)
+  $('#li-modal-body').html(newModalHtml)
+  $('#list-item-modal').modal('show')
+}
+
+const onShowFailure = error => {
+  console.log('onShowFailure ran')
 }
 
 module.exports = {
@@ -41,7 +49,8 @@ module.exports = {
   onGetListFailure,
   onAddDestinationFailure,
   onUpdateSuccess,
-  onUpdateFailure
+  onShowSuccess,
+  onShowFailure
 }
 
 

@@ -20,7 +20,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li id="sign-in" class="pointer nav-item active" data-toggle="modal" data-target="#sign-in-modal">Sign In</li>
+            <li id="sign-in" class="pointer nav-item" data-toggle="modal" data-target="#sign-in-modal">Sign In</li>
             <li id="sign-up" class="pointer nav-item" data-toggle="modal" data-target="#sign-up-modal">Sign Up</li>
             <li id="change-pw" class="pointer nav-item" data-toggle="modal" data-target="#change-pw-modal">Change Password</li>
             <li id="logout" class="pointer nav-item">Sign Out</li>
@@ -170,10 +170,10 @@
             </div>
             <div class="modal-body">
               <form id="change-ranking-form">
-                <p>Destination ID</p>
-                <input required name="id" type="text">
+                <p>City Name</p>
+                <input required name="city-name" type="text">
                 <p>New Rating</p>
-                <input required name="destination[rating]" type="Number" min="0" max="100">
+                <input required name="destination[rating]" type="Number" min="1" max="100">
                 <button type="submit" class="btn btn-light">Change Ranking</button>
                 <p id="change-ranking-message"></p>
               </form>
@@ -197,6 +197,20 @@
                 <button type="submit" class="btn btn-light">Delete Destination</button>
                 <p id="delete-destination-message"></p>
               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="list-item-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="li-modal-body">
             </div>
           </div>
         </div>

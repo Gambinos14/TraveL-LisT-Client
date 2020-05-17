@@ -13,6 +13,16 @@ const getList = () => {
   })
 }
 
+const onShow = id => {
+  return $.ajax({
+    url: config.apiUrl + `/destinations/${id}`,
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + store.user.token
+    }
+  })
+}
+
 const addDestination = destination => {
   return $.ajax({
     url: config.apiUrl + '/destinations',
@@ -51,5 +61,6 @@ module.exports = {
   getList,
   addDestination,
   changeRating,
-  deleteDestination
+  deleteDestination,
+  onShow
 }

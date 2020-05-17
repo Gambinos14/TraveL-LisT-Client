@@ -39,7 +39,8 @@ $(() => {
 
 
   //dynamic list-item click handlers
-  $('#destinations').on('click', '.destination-li', () => {
+  $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination)
+  $('#li-modal-body').on('click', '.delete-button', event => {
     console.log($(event.target).data('id'))
   })
 

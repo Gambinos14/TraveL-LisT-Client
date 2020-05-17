@@ -3,21 +3,23 @@
 const ui = require('./ui.js')
 const api = require('./api.js')
 const getFormFields = require('../../../lib/get-form-fields.js')
+const getNewDestination = require('../../../lib/get-new-destination.js')
+
 const _ = require('lodash')
 
 let currentUserRanking;
 
-const checkNumberOfDecimals = num => {
-  const numString = num.toString()
-  const numArray = numString.split(".")
-  if (numArray.length === 2) {
-    if (numArray[1].length >= 3) {
-      return true
-    } else {
-      return false
+const updateApi = async function (ranking) {
+  for (let i = 0; i < ranking.length; i++) {
+    const id = ranking[i]._id
+    const currentRating = i + 1
+    const rating = {
+      destination: {
+        rating: currentRating
+      }
     }
-  } else {
-    return false
+    api.changeRating(id, rating)
+      .catch(console.error)
   }
 }
 
@@ -26,7 +28,7 @@ const onGetList = event => {
   api.getList()
     .then(data => {
       currentUserRanking = _.sortBy(data.userDestinations, 'rating')
-      console.log('onGetList ranking: ', currentUserRanking)
+      console.log(currentUserRanking)
       ui.onGetListSuccess(currentUserRanking)
     })
     .catch(ui.onGetListFailure)
@@ -34,44 +36,13 @@ const onGetList = event => {
 
 const onAddDestination = event => {
   event.preventDefault()
-  const formData = {
-    destination: {}
-  }
+
   const form = event.target
-  formData.destination.city = $(form).find('input[name="city"]').val()
-  formData.destination.country = $(form).find('input[name="country"]').val()
+  const formData = getNewDestination(form)
 
-  const latitude = $(form).find('input[name="latitude"]').val()
-  const checkLat = checkNumberOfDecimals(latitude)
-  if (!checkLat) {
-    console.log('checkLat Failed')
-    ui.onAddDestinationFailure('checkLat failed')
+  if (formData === 'checkLong failed' || formData === 'checkLat failed') {
+    ui.onAddDestinationFailure(formData)
   }
-  const latDirection = $('#lat-direction').val()
-  if (latDirection === 'north') {
-    formData.destination.latitude = latitude
-  } else {
-    formData.destination.latitude = (0 - latitude).toString()
-  }
-
-
-  const longitude = $(form).find('input[name="longitude"]').val()
-  const checkLong = checkNumberOfDecimals(longitude)
-  if (!checkLong) {
-    console.log('checkLong Failed')
-    ui.onAddDestinationFailure('checkLong failed')
-  }
-
-  const longDirection = $('#long-direction').val()
-  if (longDirection === 'east') {
-    formData.destination.longitude = longitude
-  } else {
-    formData.destination.longitude = (0 - longitude).toString()
-  }
-
-  formData.destination.rating = $(form).find('input[name="rating"]').val()
-
-  console.log(formData)
 
   api.addDestination(formData)
     .then(response => {
@@ -87,10 +58,10 @@ const onChangeRating = event => {
   const form = event.target
   const formData = getFormFields(form)
 
-  const newRanking = formData.destination.rating
-  const cityIndex = currentUserRanking.map(e => e._id).indexOf(formData.id)
+  const newRating = formData.destination.rating
+  const cityIndex = currentUserRanking.map(e => e.city).indexOf(formData['city-name'])
   const currentCity = currentUserRanking[cityIndex]
-  currentCity.rating = newRanking
+  currentCity.rating = newRating
 
   const newUserRanking = currentUserRanking.filter( element => {
     if (element !== currentCity) {
@@ -98,35 +69,16 @@ const onChangeRating = event => {
     }
   })
 
-  newUserRanking.splice((newRanking - 1), 0, currentCity)
+  newUserRanking.splice((newRating - 1), 0, currentCity)
 
-  newUserRanking.forEach( (element, index) => {
-    newUserRanking[index].rating = index + 1
-  })
-
-  console.log(newUserRanking)
-
-const updateRanking = async function() {
-  for (let i = 0; i < newUserRanking.length; i++) {
-    const id = newUserRanking[i]._id
-    const rating = {
-      destination: {
-        rating: newUserRanking[i].rating
-      }
-    }
-    api.changeRating(id, rating)
-      .then(ui.onUpdateSuccess)
-      .catch(ui.onUpdateFailure)
-  }
-}
-
-updateRanking()
-  .then(() => {
-    onGetList(event)
-  })
-  // api.changeRating(id, rating)
-  //   .then(console.log)
-  //   .catch(console.error)
+  // BUG IS RIGHT HERE IN TRYING TO CALL ON GET LIST IN THE THEN STATEMENT
+  updateApi(newUserRanking)
+    .then(() => {
+      // console.log('done')
+      $('#change-ranking-modal').modal('hide')
+      $('#change-ranking-form').trigger('reset')
+    })
+    .catch(console.error)
 }
 
 const onDeleteDestination = event => {
@@ -138,9 +90,18 @@ const onDeleteDestination = event => {
     .catch(console.error)
 }
 
+const onShowDestination = event => {
+  const destinationId = $(event.target).data('id')
+
+  api.onShow(destinationId)
+    .then(ui.onShowSuccess)
+    .catch(ui.onShowFailure)
+}
+
 module.exports = {
   onGetList,
   onAddDestination,
   onChangeRating,
-  onDeleteDestination
+  onDeleteDestination,
+  onShowDestination
 }
