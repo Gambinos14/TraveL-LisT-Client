@@ -4130,7 +4130,7 @@ module.exports = getFormFields;
 
 var apiUrl = void 0;
 var apiUrls = {
-  production: '<replace-with-heroku-url>',
+  production: 'https://guarded-cliffs-49385.herokuapp.com',
   development: 'http://localhost:4741'
 };
 
@@ -17120,40 +17120,40 @@ var destinationEvents = __webpack_require__(351);
 // require('./example')
 
 $(function () {
-    // auth events
-    $('#sign-in-modal').modal('show');
-    $('#sign-up-modal').on('hidden.bs.modal', function () {
-        $('#sign-up-message').text('');
-        $('#sign-up-form').trigger('reset');
-    });
-    $('#sign-in-modal').on('hidden.bs.modal', function () {
-        $('#sign-in-message').text('');
-        $('#sign-in-form').trigger('reset');
-    });
-    $('#change-pw-modal').on('hidden.bs.modal', function () {
-        $('#change-pw-message').text('');
-        $('#change-pw-form').trigger('reset');
-    });
-    $('#sign-up-form').on('submit', authEvents.onSignUp);
-    $('#sign-in-form').on('submit', authEvents.onSignIn);
-    $('#change-pw-form').on('submit', authEvents.onChangePassword);
-    $('#logout').on('click', authEvents.onSignOut);
+  // auth events
+  $('#sign-in-modal').modal('show');
+  $('#sign-up-modal').on('hidden.bs.modal', function () {
+    $('#sign-up-message').text('');
+    $('#sign-up-form').trigger('reset');
+  });
+  $('#sign-in-modal').on('hidden.bs.modal', function () {
+    $('#sign-in-message').text('');
+    $('#sign-in-form').trigger('reset');
+  });
+  $('#change-pw-modal').on('hidden.bs.modal', function () {
+    $('#change-pw-message').text('');
+    $('#change-pw-form').trigger('reset');
+  });
+  $('#sign-up-form').on('submit', authEvents.onSignUp);
+  $('#sign-in-form').on('submit', authEvents.onSignIn);
+  $('#change-pw-form').on('submit', authEvents.onChangePassword);
+  $('#logout').on('click', authEvents.onSignOut);
 
-    //destination events
-    $('.bucket-list').on('click', destinationEvents.onGetList);
-    $('#new-destination-form').on('submit', destinationEvents.onAddDestination);
-    $('#new-destination-modal').on('hidden.bs.modal', function () {
-        $('#new-destination-message').text('');
-        $('#new-destination-form').trigger('reset');
-    });
-    $('#change-ranking-form').on('submit', destinationEvents.onChangeRating);
-    $('#delete-destination-form').on('submit', destinationEvents.onDeleteDestination);
+  //destination events
+  $('.bucket-list').on('click', destinationEvents.onGetList);
+  $('#new-destination-form').on('submit', destinationEvents.onAddDestination);
+  $('#new-destination-modal').on('hidden.bs.modal', function () {
+    $('#new-destination-message').text('');
+    $('#new-destination-form').trigger('reset');
+  });
+  $('#change-ranking-form').on('submit', destinationEvents.onChangeRating);
+  $('#delete-destination-form').on('submit', destinationEvents.onDeleteDestination);
 
-    //dynamic list-item click handlers
-    $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination);
-    $('#li-modal-body').on('click', '.delete-button', function (event) {
-        console.log($(event.target).data('id'));
-    });
+  //dynamic list-item click handlers
+  $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination);
+  $('#li-modal-body').on('click', '.delete-button', function (event) {
+    console.log($(event.target).data('id'));
+  });
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)))
 
@@ -17612,13 +17612,13 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
         return undefined
     };
 
-  return "  <li>\n    <h4 class=\"destination-li\" data-id="
+  return "  <li>\r\n    <h4 class=\"destination-li\" data-id="
     + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"_id") : stack1), depth0))
     + ">"
     + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"city") : stack1), depth0))
     + ", "
     + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"country") : stack1), depth0))
-    + "</h4>\n  </li>\n";
+    + "</h4>\r\n  </li>\r\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -18610,11 +18610,11 @@ module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[8,"
 
   return "<h2>"
     + alias4(((helper = (helper = lookupProperty(helpers,"city") || (depth0 != null ? lookupProperty(depth0,"city") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"city","hash":{},"data":data,"loc":{"start":{"line":1,"column":4},"end":{"line":1,"column":12}}}) : helper)))
-    + "</h2>\n<h4>"
+    + "</h2>\r\n<h4>"
     + alias4(((helper = (helper = lookupProperty(helpers,"_id") || (depth0 != null ? lookupProperty(depth0,"_id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"_id","hash":{},"data":data,"loc":{"start":{"line":2,"column":4},"end":{"line":2,"column":11}}}) : helper)))
-    + "</h4>\n<button class=\"delete-button\" data-id=\""
+    + "</h4>\r\n<button class=\"delete-button\" data-id=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"_id") || (depth0 != null ? lookupProperty(depth0,"_id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"_id","hash":{},"data":data,"loc":{"start":{"line":3,"column":39},"end":{"line":3,"column":46}}}) : helper)))
-    + "\" type=\"button\">DELETE</button>\n";
+    + "\" type=\"button\">DELETE</button>\r\n";
 },"useData":true});
 
 /***/ }),
