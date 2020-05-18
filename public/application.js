@@ -17141,6 +17141,10 @@ $(function () {
 
   //destination events
   $('.bucket-list').on('click', destinationEvents.onGetList);
+  $('#new-destination').on('click', function () {
+    $('#destinations-failure').html('');
+    $('#destinations-failure').hide();
+  });
   $('#new-destination-form').on('submit', destinationEvents.onAddDestination);
   $('#new-destination-modal').on('hidden.bs.modal', function () {
     $('#new-destination-message').text('');
@@ -17371,6 +17375,8 @@ var onSignOutSuccess = function onSignOutSuccess(data) {
   $('#logout').hide();
   $('.buttons').hide();
   $('#destinations').html("");
+  $('#destinations-failure').html('');
+  $('#destinations-failure').hide();
 };
 
 var onSignOutFailure = function onSignOutFailure(error) {
@@ -17536,14 +17542,22 @@ var updateModal = __webpack_require__(369);
 var onGetListSuccess = function onGetListSuccess(data) {
   var userDestinationsHtml = showDestinations({ destinations: data });
   $('#destinations').html(userDestinationsHtml);
+
+  if (data.length === 0) {
+    $('#destinations-failure').removeClass();
+    $('#destinations-failure').addClass('success');
+    var message = 'Add a new destination!';
+    $('#destinations-failure').html(message);
+    $('#destinations-failure').show();
+  }
 };
 
 var onGetListFailure = function onGetListFailure(error) {
-  $('.destinations-failure').removeClass();
-  $('.destinations-failure').addClass('failure');
+  $('#destinations-failure').removeClass();
+  $('#destinations-failure').addClass('failure');
   var errorMessage = 'Please try again later ...';
-  $('.destinations-failure').html(errorMessage);
-  $('.destinations-failure').show();
+  $('#destinations-failure').html(errorMessage);
+  $('#destinations-failure').show();
 };
 
 var onAddDestinationSuccess = function onAddDestinationSuccess() {
