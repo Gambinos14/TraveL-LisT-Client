@@ -35,13 +35,8 @@ $(() => {
       $('#new-destination-form').trigger('reset')
   })
   $('#change-ranking-form').on('submit', destinationEvents.onChangeRating)
-  $('#delete-destination-form').on('submit', destinationEvents.onDeleteDestination)
 
-
-  //dynamic list-item click handlers
+  //destination-list events
   $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination)
-  $('#li-modal-body').on('click', '.delete-button', event => {
-    console.log($(event.target).data('id'))
-  })
-
+  $('#li-modal-body').on('click', '.delete-button', destinationEvents.onDeleteDestination)
 })

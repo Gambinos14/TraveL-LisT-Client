@@ -20,6 +20,7 @@ const onAddDestinationSuccess = () => {
   $('#new-destination-form').trigger('reset')
   $('#new-destination-modal').modal('hide')
 }
+
 const onAddDestinationFailure = error => {
   let errorMessage
   if (error === "checkLat failed" || error === "checkLong failed") {
@@ -35,10 +36,6 @@ const onAddDestinationFailure = error => {
   $('#new-destination-message').show()
 }
 
-const onUpdateSuccess = () => {
-  console.log('updating .... ')
-}
-
 const onShowSuccess = data => {
   console.log('current info is: ', data)
   const newModalHtml = updateModal(data.destination)
@@ -50,23 +47,19 @@ const onShowFailure = error => {
   console.log('onShowFailure ran')
 }
 
+const onDeleteDestinationFailure = () => {
+  $('#delete-failed-text').removeClass()
+  $('#delete-failed-text').addClass('failure')
+  $('#delete-failed-text').html('Failed to Delete Destination')
+  $('#delete-failed-text').show()
+}
+
 module.exports = {
   onGetListSuccess,
   onGetListFailure,
   onAddDestinationSuccess,
   onAddDestinationFailure,
-  onUpdateSuccess,
   onShowSuccess,
-  onShowFailure
+  onShowFailure,
+  onDeleteDestinationFailure
 }
-
-
-// find the city in the current Ranking
-// save the currentCity to a local variable
-// delete the city from the current Ranking
-
-
-// update the local variables ranking
-// move it to the correct spot in the array
-// update the rest of the objects with their current Ranking
-// send info to the database

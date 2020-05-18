@@ -100,11 +100,16 @@ const onChangeRating = event => {
 
 const onDeleteDestination = event => {
   event.preventDefault()
-  const form = event.target
-  const destinationId = $(form).find('input[name="id"]').val()
+
+  const destinationId = $(event.target).data('id')
+  console.log(destinationId)
+
   api.deleteDestination(destinationId)
-    .then(console.log)
-    .catch(console.error)
+    .then(() => {
+      $('#list-item-modal').modal('hide')
+      onGetList(event)
+    })
+    .catch(ui.onDeleteDestinationFailure)
 }
 
 const onShowDestination = event => {
