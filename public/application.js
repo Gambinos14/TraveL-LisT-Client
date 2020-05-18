@@ -17447,7 +17447,7 @@ var onAddDestination = function onAddDestination(event) {
     Promise.all(promises).then(function () {
       ui.onAddDestinationSuccess();
       onGetList(event);
-    }).catch(ui.onAddDestinationFailure('Failed to Update API'));
+    });
   }).catch(ui.onAddDestinationFailure);
 };
 
@@ -17555,8 +17555,6 @@ var onAddDestinationFailure = function onAddDestinationFailure(error) {
   var errorMessage = void 0;
   if (error === "checkLat failed" || error === "checkLong failed") {
     errorMessage = "Latitude or Longitude were entered incorrectly. Include 3 decimal places.";
-  } else if (error === 'Failed to Update API') {
-    errorMessage = error;
   } else {
     errorMessage = error.responseJSON.message;
   }
@@ -18642,17 +18640,17 @@ module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[8,"
     + alias4(((helper = (helper = lookupProperty(helpers,"city") || (depth0 != null ? lookupProperty(depth0,"city") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"city","hash":{},"data":data,"loc":{"start":{"line":1,"column":29},"end":{"line":1,"column":37}}}) : helper)))
     + ", "
     + alias4(((helper = (helper = lookupProperty(helpers,"country") || (depth0 != null ? lookupProperty(depth0,"country") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"country","hash":{},"data":data,"loc":{"start":{"line":1,"column":39},"end":{"line":1,"column":50}}}) : helper)))
-    + "</h2>\n<h5 class=\"destination-info\">Current Rating:  "
+    + "</h2>\r\n<h5 class=\"destination-info\">Current Rating:  "
     + alias4(((helper = (helper = lookupProperty(helpers,"rating") || (depth0 != null ? lookupProperty(depth0,"rating") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rating","hash":{},"data":data,"loc":{"start":{"line":2,"column":46},"end":{"line":2,"column":56}}}) : helper)))
-    + "</h5>\n<p>Owner: "
+    + "</h5>\r\n<p>Owner: "
     + alias4(container.lambda(((stack1 = (depth0 != null ? lookupProperty(depth0,"owner") : depth0)) != null ? lookupProperty(stack1,"email") : stack1), depth0))
-    + "</p>\n<p>Last Update: "
+    + "</p>\r\n<p>Last Update: "
     + alias4(((helper = (helper = lookupProperty(helpers,"updatedAt") || (depth0 != null ? lookupProperty(depth0,"updatedAt") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"updatedAt","hash":{},"data":data,"loc":{"start":{"line":4,"column":16},"end":{"line":4,"column":29}}}) : helper)))
-    + "</p>\n<p>Document ID: "
+    + "</p>\r\n<p>Document ID: "
     + alias4(((helper = (helper = lookupProperty(helpers,"_id") || (depth0 != null ? lookupProperty(depth0,"_id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"_id","hash":{},"data":data,"loc":{"start":{"line":5,"column":16},"end":{"line":5,"column":23}}}) : helper)))
-    + "</p>\n<button class=\"btn btn-danger delete-button\" data-id=\""
+    + "</p>\r\n<button class=\"btn btn-danger delete-button\" data-id=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"_id") || (depth0 != null ? lookupProperty(depth0,"_id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"_id","hash":{},"data":data,"loc":{"start":{"line":6,"column":54},"end":{"line":6,"column":61}}}) : helper)))
-    + "\" type=\"button\">Delete Destination</button>\n";
+    + "\" type=\"button\">Delete Destination</button>\r\n";
 },"useData":true});
 
 /***/ }),
