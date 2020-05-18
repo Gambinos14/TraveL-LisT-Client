@@ -40,6 +40,12 @@ body {
   margin-bottom: 5px;
 }
 
+@media screen and (min-width: 1450px) {
+  .destination-li {
+    font-size: 0.75em;
+  }
+}
+
 .destinations-failure {
   display: none;
 }
