@@ -25,8 +25,6 @@ const onAddDestinationFailure = error => {
   let errorMessage
   if (error === "checkLat failed" || error === "checkLong failed") {
     errorMessage = "Latitude or Longitude were entered incorrectly. Include 3 decimal places."
-  } else if (error ==='Failed to Update API') {
-    errorMessage = error
   } else {
     errorMessage = error.responseJSON.message
   }

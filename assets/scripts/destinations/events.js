@@ -52,7 +52,6 @@ const onAddDestination = event => {
           ui.onAddDestinationSuccess()
           onGetList(event)
         })
-        .catch(ui.onAddDestinationFailure('Failed to Update API'))
     })
     .catch(ui.onAddDestinationFailure)
 }
