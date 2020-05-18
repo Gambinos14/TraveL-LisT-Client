@@ -59,8 +59,8 @@ const deleteDestination = id => {
 
 module.exports = {
   getList,
+  onShow,
   addDestination,
   changeRating,
-  deleteDestination,
-  onShow
+  deleteDestination
 }

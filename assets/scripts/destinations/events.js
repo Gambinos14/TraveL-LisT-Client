@@ -22,7 +22,6 @@ const onGetList = event => {
 
 const onAddDestination = event => {
   event.preventDefault()
-
   const form = event.target
   const formData = getNewDestination(form)
 
@@ -61,11 +60,18 @@ const onAddDestination = event => {
 const onChangeRating = event => {
   event.preventDefault()
   const form = event.target
-  const formData = getFormFields(form)
 
-  const newRating = formData.destination.rating
-  const cityIndex = currentUserRanking.map(e => e.city).indexOf(formData['city-name'])
+  const newRating = $(form).find('input[name="new-rating"]').val()
+  const cityName = $(form).find('input[name="city-name"]').val().trim()
+
+  const cityIndex = currentUserRanking.map(e => e.city).indexOf(cityName)
   const currentCity = currentUserRanking[cityIndex]
+
+  if (!currentCity) {
+    ui.onChangeRatingFailure('City does not exist!')
+    return
+  }
+
   currentCity.rating = newRating
 
   const newUserRanking = currentUserRanking.filter( element => {
@@ -91,22 +97,20 @@ const onChangeRating = event => {
 
   Promise.all(promises)
     .then(() => {
+      ui.onChangeRatingSuccess()
       onGetList(event)
-      $('#change-ranking-modal').modal('hide')
-      $('#change-ranking-form').trigger('reset')
     })
-    .catch(console.error)
+    .catch(ui.onChangeRatingFailure)
 }
 
 const onDeleteDestination = event => {
   event.preventDefault()
 
   const destinationId = $(event.target).data('id')
-  console.log(destinationId)
 
   api.deleteDestination(destinationId)
     .then(() => {
-      $('#list-item-modal').modal('hide')
+      ui.onDeleteDestinationSuccess()
       onGetList(event)
     })
     .catch(ui.onDeleteDestinationFailure)

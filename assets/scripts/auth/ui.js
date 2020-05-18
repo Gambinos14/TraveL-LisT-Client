@@ -44,7 +44,7 @@ const onChangePasswordSuccess = data => {
 
 const onChangePasswordFailure = error => {
   $('#change-pw-form').trigger('reset')
-  let errorMessage = error.responseJSON.message
+  const errorMessage = error.responseJSON.message
   $('#change-pw-message').removeClass()
   $('#change-pw-message').addClass('failure')
   $('#change-pw-message').text(errorMessage)

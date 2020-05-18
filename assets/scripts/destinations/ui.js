@@ -36,15 +36,45 @@ const onAddDestinationFailure = error => {
   $('#new-destination-message').show()
 }
 
+const onChangeRatingSuccess = () => {
+  $('#change-ranking-modal').modal('hide')
+  $('#change-ranking-form').trigger('reset')
+}
+
+const onChangeRatingFailure = error => {
+  let errorMessage;
+  if (error.responseJSON) {
+    errorMessage = error.responseJSON.message
+  } else if (error === 'City does not exist!') {
+    errorMessage = error
+  } else {
+    errorMessage = 'Failed to Update Destination Ratings'
+  }
+  $('#change-ranking-message').removeClass()
+  $('#change-ranking-message').addClass('failure')
+  $('#change-ranking-message').html(errorMessage)
+  $('#change-ranking-message').show()
+}
+
 const onShowSuccess = data => {
-  console.log('current info is: ', data)
   const newModalHtml = updateModal(data.destination)
   $('#li-modal-body').html(newModalHtml)
   $('#list-item-modal').modal('show')
 }
 
 const onShowFailure = error => {
-  console.log('onShowFailure ran')
+  let errorMessage
+  if (error.responseJSON) {
+    errorMessage = error.responseJSON.message
+  } else {
+    errorMessage = 'Could not find this destination ...'
+  }
+  $('#li-modal-body').html(errorMessage)
+  $('#list-item-modal').modal('show')
+}
+
+const onDeleteDestinationSuccess = () => {
+  $('#list-item-modal').modal('hide')
 }
 
 const onDeleteDestinationFailure = () => {
@@ -59,7 +89,10 @@ module.exports = {
   onGetListFailure,
   onAddDestinationSuccess,
   onAddDestinationFailure,
+  onChangeRatingSuccess,
+  onChangeRatingFailure,
   onShowSuccess,
   onShowFailure,
-  onDeleteDestinationFailure
+  onDeleteDestinationFailure,
+  onDeleteDestinationSuccess
 }
