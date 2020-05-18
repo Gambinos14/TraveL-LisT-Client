@@ -29,6 +29,10 @@ $(() => {
 
   //destination events
   $('.bucket-list').on('click', destinationEvents.onGetList)
+  $('#new-destination').on('click', () => {
+    $('#destinations-failure').html('')
+    $('#destinations-failure').hide()
+  })
   $('#new-destination-form').on('submit', destinationEvents.onAddDestination)
   $('#new-destination-modal').on('hidden.bs.modal', () => {
       $('#new-destination-message').text('')

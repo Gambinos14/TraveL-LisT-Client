@@ -57,6 +57,8 @@ const onSignOutSuccess = data => {
   $('#logout').hide()
   $('.buttons').hide()
   $('#destinations').html("")
+  $('#destinations-failure').html('')
+  $('#destinations-failure').hide()
 }
 
 const onSignOutFailure = error => {

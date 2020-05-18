@@ -6,14 +6,22 @@ const updateModal = require('../../templates/listItem-modal.handlebars')
 const onGetListSuccess = data => {
   const userDestinationsHtml = showDestinations({ destinations: data })
   $('#destinations').html(userDestinationsHtml)
+
+  if (data.length === 0){
+    $('#destinations-failure').removeClass()
+    $('#destinations-failure').addClass('success')
+    const message = 'Add a new destination!'
+    $('#destinations-failure').html(message)
+    $('#destinations-failure').show()
+  }
 }
 
 const onGetListFailure = error => {
-  $('.destinations-failure').removeClass()
-  $('.destinations-failure').addClass('failure')
+  $('#destinations-failure').removeClass()
+  $('#destinations-failure').addClass('failure')
   const errorMessage = 'Please try again later ...'
-  $('.destinations-failure').html(errorMessage)
-  $('.destinations-failure').show()
+  $('#destinations-failure').html(errorMessage)
+  $('#destinations-failure').show()
 }
 
 const onAddDestinationSuccess = () => {
