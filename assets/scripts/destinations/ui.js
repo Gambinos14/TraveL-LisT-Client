@@ -16,10 +16,16 @@ const onGetListFailure = error => {
   $('.destinations-failure').show()
 }
 
+const onAddDestinationSuccess = () => {
+  $('#new-destination-form').trigger('reset')
+  $('#new-destination-modal').modal('hide')
+}
 const onAddDestinationFailure = error => {
   let errorMessage
   if (error === "checkLat failed" || error === "checkLong failed") {
     errorMessage = "Latitude or Longitude were entered incorrectly. Include 3 decimal places."
+  } else if (error ==='Failed to Update API') {
+    errorMessage = error
   } else {
     errorMessage = error.responseJSON.message
   }
@@ -30,7 +36,7 @@ const onAddDestinationFailure = error => {
 }
 
 const onUpdateSuccess = () => {
- //code
+  console.log('updating .... ')
 }
 
 const onShowSuccess = data => {
@@ -47,6 +53,7 @@ const onShowFailure = error => {
 module.exports = {
   onGetListSuccess,
   onGetListFailure,
+  onAddDestinationSuccess,
   onAddDestinationFailure,
   onUpdateSuccess,
   onShowSuccess,

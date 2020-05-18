@@ -9,26 +9,12 @@ const _ = require('lodash')
 
 let currentUserRanking;
 
-const updateApi = async function (ranking) {
-  for (let i = 0; i < ranking.length; i++) {
-    const id = ranking[i]._id
-    const currentRating = i + 1
-    const rating = {
-      destination: {
-        rating: currentRating
-      }
-    }
-    api.changeRating(id, rating)
-      .catch(console.error)
-  }
-}
-
 const onGetList = event => {
   event.preventDefault()
   api.getList()
     .then(data => {
       currentUserRanking = _.sortBy(data.userDestinations, 'rating')
-      console.log(currentUserRanking)
+      console.log('onGetList: ', currentUserRanking)
       ui.onGetListSuccess(currentUserRanking)
     })
     .catch(ui.onGetListFailure)
@@ -45,10 +31,29 @@ const onAddDestination = event => {
   }
 
   api.addDestination(formData)
-    .then(response => {
-      onGetList(event)
-      $('#new-destination-form').trigger('reset')
-      $('#new-destination-modal').modal('hide')
+    .then(data => {
+
+      currentUserRanking.splice((data.destination.rating - 1), 0, data.destination)
+
+      const promises = []
+
+      for (let i = 0; i < currentUserRanking.length; i++) {
+        const id = currentUserRanking[i]._id
+        const currentRating = i + 1
+        const rating = {
+          destination: {
+            rating: currentRating
+          }
+        }
+        promises.push(api.changeRating(id, rating))
+      }
+
+      Promise.all(promises)
+        .then(() => {
+          ui.onAddDestinationSuccess()
+          onGetList(event)
+        })
+        .catch(ui.onAddDestinationFailure('Failed to Update API'))
     })
     .catch(ui.onAddDestinationFailure)
 }
@@ -71,10 +76,22 @@ const onChangeRating = event => {
 
   newUserRanking.splice((newRating - 1), 0, currentCity)
 
-  // BUG IS RIGHT HERE IN TRYING TO CALL ON GET LIST IN THE THEN STATEMENT
-  updateApi(newUserRanking)
+  const promises = []
+
+  for (let i = 0; i < newUserRanking.length; i++) {
+    const id = newUserRanking[i]._id
+    const currentRating = i + 1
+    const rating = {
+      destination: {
+        rating: currentRating
+      }
+    }
+    promises.push(api.changeRating(id, rating))
+  }
+
+  Promise.all(promises)
     .then(() => {
-      // console.log('done')
+      onGetList(event)
       $('#change-ranking-modal').modal('hide')
       $('#change-ranking-form').trigger('reset')
     })
