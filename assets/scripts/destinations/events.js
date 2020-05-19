@@ -109,8 +109,37 @@ const onDeleteDestination = event => {
 
   api.deleteDestination(destinationId)
     .then(() => {
-      ui.onDeleteDestinationSuccess()
-      onGetList(event)
+      // if error add back onDeleteDestinationSuccess()
+      // if error add back here onGetList(event)
+      // upon success include an API call to edit rankings in the database
+      const cityIndex = currentUserRanking.map(e => e._id).indexOf(destinationId)
+      const currentCity = currentUserRanking[cityIndex]
+
+      const newUserRanking = currentUserRanking.filter( element => {
+        if (element !== currentCity) {
+          return true
+        }
+      })
+
+      const promises = []
+
+      for (let i = 0; i < newUserRanking.length; i++) {
+        const id = newUserRanking[i]._id
+        const currentRating = i + 1
+        const rating = {
+          destination: {
+            rating: currentRating
+          }
+        }
+        promises.push(api.changeRating(id, rating))
+      }
+
+      Promise.all(promises)
+        .then(() => {
+          ui.onDeleteDestinationSuccess()
+          onGetList(event)
+        })
+        .catch(ui.onDeleteDestinationFailure)
     })
     .catch(ui.onDeleteDestinationFailure)
 }

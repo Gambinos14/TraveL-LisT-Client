@@ -52,6 +52,7 @@ body {
 
 .error_message {
   display: none;
+  text-align: center;
 }
 
 .flex-wrapper {
@@ -77,6 +78,7 @@ body {
   align-items: center;
   border-right: 1px solid black;
   width: 30%;
+  height: 92vh;
   & > ol {
     display: flex;
     flex-direction: column;
@@ -89,7 +91,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid black;
+    border: none;
     width: 100vw;
     & > ol {
       display: flex;
@@ -99,18 +101,8 @@ body {
   }
 }
 
-.map {
-  width: 70%;
-  padding: 35px;
-  & > .world-map {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
 @media screen and (max-width: 1290px) {
-  .map {
+  #map {
     display: none;
   }
 }
@@ -149,6 +141,7 @@ body {
   // first number is left/right second number top/bottom third is blur
   box-shadow: 0 0 10px;
   & > .navbar-brand {
+    margin-left: 15px;
     font-size: 30px;
     font-weight: 700;
   }
@@ -219,4 +212,9 @@ body {
 
 #delete-failed-text {
   display: none;
+}
+
+#map {
+  width: 70%;
+  height: 92vh;
 }

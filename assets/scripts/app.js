@@ -1,11 +1,7 @@
 'use strict'
 
-// use require with a reference to bundle the file and use it in this file
-// const example = require('./example')
 const authEvents = require('./auth/events.js')
 const destinationEvents = require('./destinations/events.js')
-// use require without a reference to ensure a file is bundled
-// require('./example')
 
 $(() => {
   // auth events
@@ -46,4 +42,18 @@ $(() => {
   //destination-list events
   $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination)
   $('#li-modal-body').on('click', '.delete-button', destinationEvents.onDeleteDestination)
+
+  //display map
+  $('#map').html(`
+    <script>
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 36.9372, lng: -20.6376},
+          zoom: 2
+        })
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQHUmIAunkdS9bQKxMBHgMuv1WFrvlWV8&callback=initMap"></script>
+  `)
+
 })
