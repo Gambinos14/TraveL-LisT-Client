@@ -65,6 +65,8 @@ const onSignOutSuccess = data => {
     zoom: 2
   }
   const map = new google.maps.Map(document.getElementById("map"), mapOptions)
+
+  $('#sign-in-modal').modal('show')
 }
 
 const onSignOutFailure = error => {
