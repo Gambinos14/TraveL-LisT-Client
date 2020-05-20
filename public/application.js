@@ -17378,6 +17378,8 @@ var onSignOutSuccess = function onSignOutSuccess(data) {
     zoom: 2
   };
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+  $('#sign-in-modal').modal('show');
 };
 
 var onSignOutFailure = function onSignOutFailure(error) {
