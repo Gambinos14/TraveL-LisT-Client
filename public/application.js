@@ -17153,9 +17153,6 @@ $(function () {
   //destination-list events
   $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination);
   $('#li-modal-body').on('click', '.delete-button', destinationEvents.onDeleteDestination);
-
-  //display map
-  $('#map').html('\n    <script>\n      function initMap() {\n        const map = new google.maps.Map(document.getElementById(\'map\'), {\n          center: {lat: 36.9372, lng: -20.6376},\n          zoom: 2\n        })\n      }\n    </script>\n    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQHUmIAunkdS9bQKxMBHgMuv1WFrvlWV8&callback=initMap"></script>\n  ');
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)))
 
@@ -17423,7 +17420,7 @@ var onGetList = function onGetList(event) {
   event.preventDefault();
   api.getList().then(function (data) {
     currentUserRanking = _.sortBy(data.userDestinations, 'rating');
-    console.log('onGetList: ', currentUserRanking);
+    // console.log('onGetList: ', currentUserRanking)
     ui.onGetListSuccess(currentUserRanking);
   }).catch(ui.onGetListFailure);
 };
@@ -17573,14 +17570,12 @@ var showDestinations = __webpack_require__(353);
 var updateModal = __webpack_require__(369);
 
 var onGetListSuccess = function onGetListSuccess(data) {
-  console.log('onGetListSuccess data: ', data);
-
   var userDestinationsHtml = showDestinations({ destinations: data });
   $('#destinations').html(userDestinationsHtml);
 
   var mapOptions = {
     center: { lat: 36.9372, lng: -20.6376 },
-    zoom: 2
+    zoom: 4
   };
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -17588,7 +17583,9 @@ var onGetListSuccess = function onGetListSuccess(data) {
     var myLatlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
     var marker = new google.maps.Marker({
       position: myLatlng,
-      title: data[i].city
+      title: data[i].city,
+      animation: google.maps.Animation.DROP,
+      label: (i + 1).toString()
     });
     // To add the marker to the map, call setMap();
     marker.setMap(map);
