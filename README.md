@@ -1,4 +1,4 @@
-# TraveL-LisT-Client: A travel planning app to inspire your future travels!
+# TraveL-LisT-Client
 
 This app allows users to build their own custom destination lists to start
 planning their next big travel adventure.
