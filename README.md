@@ -9,7 +9,7 @@ API repo: [TraveL-LisT-API](https://github.com/Gambinos14/TraveL-LisT-API)
 
 #### Project Planning
 
-As someone who loves to travel I often find myself dreaming of the next big
+As someone who loves to travel, I often find myself dreaming of the next big
 adventure, so I decided to build an application where a user can dynamically
 build a travel list to keep track of the destinations they want to visit. I
 wanted the application to have some integration with the google Maps API so

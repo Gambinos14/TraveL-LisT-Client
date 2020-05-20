@@ -7,9 +7,18 @@ const onGetListSuccess = data => {
   const userDestinationsHtml = showDestinations({ destinations: data })
   $('#destinations').html(userDestinationsHtml)
 
+  if (data.length === 0){
+    $('#destinations-failure').removeClass()
+    $('#destinations-failure').addClass('success')
+    const message = 'Add a new destination!'
+    $('#destinations-failure').html(message)
+    $('#destinations-failure').show()
+    return
+  }
+
   const mapOptions = {
-    center: {lat: 36.9372, lng: -20.6376},
-    zoom: 4
+    center: {lat: data[0].latitude, lng: data[0].longitude},
+    zoom: 3
   }
   const map = new google.maps.Map(document.getElementById("map"), mapOptions)
 
@@ -23,14 +32,6 @@ const onGetListSuccess = data => {
     })
       // To add the marker to the map, call setMap();
     marker.setMap(map)
-  }
-
-  if (data.length === 0){
-    $('#destinations-failure').removeClass()
-    $('#destinations-failure').addClass('success')
-    const message = 'Add a new destination!'
-    $('#destinations-failure').html(message)
-    $('#destinations-failure').show()
   }
 }
 
