@@ -13,6 +13,12 @@ const onGetListSuccess = data => {
     const message = 'Add a new destination!'
     $('#destinations-failure').html(message)
     $('#destinations-failure').show()
+
+    const mapOptions = {
+      center: {lat: 36.9372, lng: -20.6376},
+      zoom: 2
+    }
+    const resetMap = new google.maps.Map(document.getElementById("map"), mapOptions)
     return
   }
 
