@@ -49,6 +49,7 @@ my bucket list.
 * HTML
 * CSS
 * jQuery
+* AJAX
 * Handlebars.js
 * Bootstrap
 * Google Maps JavaScript API
