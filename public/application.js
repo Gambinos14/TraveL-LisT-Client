@@ -17573,9 +17573,18 @@ var onGetListSuccess = function onGetListSuccess(data) {
   var userDestinationsHtml = showDestinations({ destinations: data });
   $('#destinations').html(userDestinationsHtml);
 
+  if (data.length === 0) {
+    $('#destinations-failure').removeClass();
+    $('#destinations-failure').addClass('success');
+    var message = 'Add a new destination!';
+    $('#destinations-failure').html(message);
+    $('#destinations-failure').show();
+    return;
+  }
+
   var mapOptions = {
-    center: { lat: 36.9372, lng: -20.6376 },
-    zoom: 4
+    center: { lat: data[0].latitude, lng: data[0].longitude },
+    zoom: 3
   };
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -17589,14 +17598,6 @@ var onGetListSuccess = function onGetListSuccess(data) {
     });
     // To add the marker to the map, call setMap();
     marker.setMap(map);
-  }
-
-  if (data.length === 0) {
-    $('#destinations-failure').removeClass();
-    $('#destinations-failure').addClass('success');
-    var message = 'Add a new destination!';
-    $('#destinations-failure').html(message);
-    $('#destinations-failure').show();
   }
 };
 
