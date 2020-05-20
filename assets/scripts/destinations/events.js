@@ -14,7 +14,7 @@ const onGetList = event => {
   api.getList()
     .then(data => {
       currentUserRanking = _.sortBy(data.userDestinations, 'rating')
-      console.log('onGetList: ', currentUserRanking)
+      // console.log('onGetList: ', currentUserRanking)
       ui.onGetListSuccess(currentUserRanking)
     })
     .catch(ui.onGetListFailure)

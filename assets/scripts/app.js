@@ -42,18 +42,4 @@ $(() => {
   //destination-list events
   $('#destinations').on('click', '.destination-li', destinationEvents.onShowDestination)
   $('#li-modal-body').on('click', '.delete-button', destinationEvents.onDeleteDestination)
-
-  //display map
-  $('#map').html(`
-    <script>
-      function initMap() {
-        const map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 36.9372, lng: -20.6376},
-          zoom: 2
-        })
-      }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQHUmIAunkdS9bQKxMBHgMuv1WFrvlWV8&callback=initMap"></script>
-  `)
-
 })

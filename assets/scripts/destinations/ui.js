@@ -4,14 +4,12 @@ const showDestinations = require('../../templates/destination-listing.handlebars
 const updateModal = require('../../templates/listItem-modal.handlebars')
 
 const onGetListSuccess = data => {
-  console.log('onGetListSuccess data: ', data)
-
   const userDestinationsHtml = showDestinations({ destinations: data })
   $('#destinations').html(userDestinationsHtml)
 
   const mapOptions = {
     center: {lat: 36.9372, lng: -20.6376},
-    zoom: 2
+    zoom: 4
   }
   const map = new google.maps.Map(document.getElementById("map"), mapOptions)
 
@@ -19,7 +17,9 @@ const onGetListSuccess = data => {
     const myLatlng = new google.maps.LatLng(data[i].latitude, data[i].longitude)
     const marker = new google.maps.Marker({
         position: myLatlng,
-        title: data[i].city
+        title: data[i].city,
+        animation: google.maps.Animation.DROP,
+        label: (i + 1).toString()
     })
       // To add the marker to the map, call setMap();
     marker.setMap(map)
