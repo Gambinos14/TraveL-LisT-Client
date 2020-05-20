@@ -17581,6 +17581,12 @@ var onGetListSuccess = function onGetListSuccess(data) {
     var message = 'Add a new destination!';
     $('#destinations-failure').html(message);
     $('#destinations-failure').show();
+
+    var _mapOptions = {
+      center: { lat: 36.9372, lng: -20.6376 },
+      zoom: 2
+    };
+    var resetMap = new google.maps.Map(document.getElementById("map"), _mapOptions);
     return;
   }
 
